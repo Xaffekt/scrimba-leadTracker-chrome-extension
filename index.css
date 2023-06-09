@@ -42,5 +42,5 @@ li {
 }
 
 li a { /*only targets ancor tags inside lists*/
-    color:blue;
+    color:#5f9341;
 }
