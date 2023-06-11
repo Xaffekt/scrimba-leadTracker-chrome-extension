@@ -2,35 +2,58 @@
 let myLeads = [];
 
 const inputEl = document.getElementById("input-el");
-const inputBtn = document.getElementById("input-btn");
 const ulEl = document.getElementById("ul-el");
- 
-let leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
+const inputBtn = document.getElementById("input-btn");
+const tabBtn = document.getElementById("tab-btn");
+const deleteBtn = document.getElementById("delete-btn");
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 
-console.log(leadsFromLocalStorage)
+if(leadsFromLocalStorage)
+{
+    myLeads = leadsFromLocalStorage;
+    renderList(myLeads);
+}
 
 
-inputBtn.addEventListener("click",function(){
-    myLeads.push(inputEl.value);
+inputBtn.addEventListener("click",function(){ //input btn
+    myLeads.unshift(inputEl.value); 
     inputEl.value = "";
+    localStorage.setItem("myLeads", JSON.stringify(myLeads));
+    renderList(myLeads);
+});
 
-    localStorage.setItem("myLeads", JSON.stringify(myLeads))
 
-    renderLeads();
+tabBtn.addEventListener("click", function(){ //tab btn
+    console.log(tabs[0].url);
+
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        console.log(tabs);
+
+        myLeads.unshift(tabs[0].url);
+        localStorage.setItem("myLeads", JSON.stringify(myLeads));
+        renderList(myLeads);
+    });
+
+});
+
+deleteBtn.addEventListener("dblclick", function(){ //delete btn
+    myLeads = [];
+    localStorage.clear();
+    renderList(myLeads);
 })
 
-function renderLeads()
+function renderList(arr)
 {
     let listItems = "";
 
-    for(let i = 0; i < myLeads.length; i++)
+    for(let i = 0; i < arr.length; i++)
     {
         //clean way to use inner.html
         //called template literals(string)
         listItems += `
             <li>
-                <a target='_blank' href='${myLeads[i]}'>
-                    ${myLeads[i]}
+                <a target='_blank' href='${arr[i]}'>
+                    ${arr[i]}
                 </a>
             </li>`;
     } 

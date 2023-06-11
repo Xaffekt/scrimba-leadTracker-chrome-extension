@@ -23,13 +23,19 @@ input {
 }
 
 button {
-    border:none;
+    border: 1px solid #5f9341;
     margin-bottom: 10px;
     padding: 10px 20px;
 
     font-weight: bold;
     background: #5f9341;
     color: white;
+}
+
+#delete-btn
+{
+    background: white; 
+    color: #5f9341;
 }
 
 ul {
