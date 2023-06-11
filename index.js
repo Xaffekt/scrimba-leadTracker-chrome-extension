@@ -20,11 +20,10 @@ inputBtn.addEventListener("click",function(){ //input btn
     inputEl.value = "";
     localStorage.setItem("myLeads", JSON.stringify(myLeads));
     renderList(myLeads);
-});
+})
 
 
 tabBtn.addEventListener("click", function(){ //tab btn
-    console.log(tabs[0].url);
 
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
         console.log(tabs);
@@ -32,9 +31,9 @@ tabBtn.addEventListener("click", function(){ //tab btn
         myLeads.unshift(tabs[0].url);
         localStorage.setItem("myLeads", JSON.stringify(myLeads));
         renderList(myLeads);
-    });
+    })
 
-});
+})
 
 deleteBtn.addEventListener("dblclick", function(){ //delete btn
     myLeads = [];
